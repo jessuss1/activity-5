@@ -74,7 +74,7 @@ public class LayoutUtils {
     }
 
     private static void styleButtonAsDefault(Button button, Context context) {
-        // Estilo para el boton
+        // Estilos para el boton
         button.setBackgroundTintList(context.getResources().getColorStateList(android.R.color.holo_blue_dark)); // Default blue
         button.setTextColor(context.getResources().getColor(android.R.color.white));
         button.setPadding(16, 8, 16, 8); // Padding similar to MaterialButton
