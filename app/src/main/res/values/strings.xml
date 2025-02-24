@@ -1,3 +1,49 @@
 <resources>
-    <string name="app_name">Quinta2</string>
+    <string name="app_name">Act 5</string>
+
+<!--Nombres de todas las sabrita excluyendo paketaxos de la carpeta res/drawables-->
+<!--El \n es para que apareza una palabra por linea-->
+    <string-array name="sabritas_names">
+        <item>Ruffles\nOriginal</item>
+        <item>Cheetos\nTorciditos</item>
+        <item>Doritos\nPizzerola</item>
+        <item>Fritos\nChile-Limon</item>
+        <item>Sabritas\nHabanero</item>
+        <item>Ruffles\nFH</item>
+        <item>Doritos\nNacho</item>
+        <item>Doritos\nIncognita</item>
+        <item>Sabritas\nLimon</item>
+        <item>Sabritas\nOriginal</item>
+        <item>Ruffles\nQueso</item>
+        <item>Fritos\nChorizo</item>
+        <item>Cheetos\nBolitas</item>
+        <item>Cheetos\nFH</item>
+        <item>Cheetos\nPalomitas</item>
+        <item>Cheetos\nPoffs</item>
+        <item>Churrumais</item>
+        <item>Crujitos\nFH</item>
+        <item>Crujitos</item>
+        <item>Doritos\n3D FH</item>
+        <item>Doritos 3D</item>
+        <item>Fritos\nLimon-Sal</item>
+        <item>Sabritas FH</item>
+        <item>Ruffles\nQueso</item>
+        <item>Doritos\nDinamita FH</item>
+        <item>Sabritas\nAdobadas</item>
+        <item>Doritos\nDinamita</item>
+        <item>Rancheritos</item>
+        <item>Image 29</item>
+        <item>Fritos FH</item>
+        <item>Sabritones</item>
+        <item>Sabritones\nRodacas</item>
+        <item>Tostitos FH</item>
+        <item>Sabritas\nCrujientes</item>
+        <item>Tostitos\nElote</item>
+        <item>Tostitos</item>
+        <item>Cheetos\nNacho</item>
+        <item>Sabritas\nCrema</item>
+        <item>Fritos\nLimon-Sal</item>
+
+    </string-array>
+
 </resources>

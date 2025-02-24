@@ -1,131 +1,86 @@
 package com.example.quinta2;
 
-import android.os.Bundle;
-import android.widget.CheckBox;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private int[] images;
+    private String[] names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Crear RecyclerView programáticamente
+        // Load images dynamically, excluding those with "special_" and "ic_launcher" prefix
+        images = getAllDrawables();
+        names = getResources().getStringArray(R.array.sabritas_names);
+
+        TextView selectionIndicator = new TextView(this);
         RecyclerView recyclerView = new RecyclerView(this);
-        recyclerView.setLayoutParams(new RecyclerView.LayoutParams(
-                RecyclerView.LayoutParams.MATCH_PARENT,
-                RecyclerView.LayoutParams.MATCH_PARENT
-        ));
+        Button actionButton = new Button(this);
+        actionButton.setText("Submit");
 
-        // Establecer GridLayoutManager con 2 columnas
+        // Initial button state (disabled and grayed out)
+        actionButton.setEnabled(false);
+        actionButton.setAlpha(0.5f);
+
+        ImageAdapter adapter = new ImageAdapter(images, names, selectionIndicator, actionButton);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-
-        //int[] imagenes = new int[43];
-        String[] nombres = new String[43];
-
-        int imagenes = getResources().getIdentifier("img_" + 1, "drawable", getPackageName());
-        /*for (int i = 0; i <= 43; i++) {
-            imagenes[i] = getResources().getIdentifier("img_" + i, "drawable", getPackageName());
-            System.out.println(imagenes[i]);
-            nombres[i] = "nombres";
-        }*/
-
-        // Datos de ejemplo
-        int[] images = {imagenes, imagenes,imagenes,imagenes,imagenes,imagenes,imagenes,imagenes,};
-        String[] names = {"Cámara", "Galería", "Configuración", "Ayuda", "Configuración", "Ayuda", "Configuración", "Ayuda"};
-
-        // Configurar el adaptador
-        ImageAdapter adapter = new ImageAdapter(images, names);
         recyclerView.setAdapter(adapter);
 
-        // Mostrar RecyclerView
-        setContentView(recyclerView);
+
+        //Solo muestra una alerta no intrusiva que muestra las selecciones hechas a partir del HahsSet
+        actionButton.setOnClickListener(v -> {
+            Toast.makeText(this, "Selected: " + adapter.getSelectedPositions(), Toast.LENGTH_SHORT).show();
+        });
+
+        LinearLayout rootLayout = LayoutUtils.createThreePartLayout(this, recyclerView, selectionIndicator, actionButton);
+        setContentView(rootLayout);
     }
-}
 
+   // Extrae todos los elementos de res/drawables en una lista
+    private int[] getAllDrawables() {
+        List<Integer> drawableIds = new ArrayList<>();
+        Field[] fields = R.drawable.class.getDeclaredFields();
 
+        for (Field field : fields) {
+            try {
+                int resId = field.getInt(null);
+                String resName = field.getName();
 
-/*
-*
-* ScrollView scrollView = new ScrollView(this);
-
-        scrollView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-
-
-        LinearLayout layout = new LinearLayout(this);
-
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.setPadding(20, 20, 20, 20);
-
-        layout.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
-
-        layout.setBackgroundColor(Color.LTGRAY);
-
-
-        for (int i = 1; i <= 43; i++) {
-
-            LinearLayout itemLayout = new LinearLayout(this);
-            itemLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            itemLayout.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-
-            itemLayout.setPadding(10, 10, 10, 10);
-
-            // Obtener imagenes de la carpeta "drawable/"
-            int imageResId = getResources().getIdentifier("img_" + i, "drawable", getPackageName());
-
-            // Crear ImageView para mostrar la imagen
-            ImageView imageView = new ImageView(this);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(200, 200));
-
-            // Asignar ID
-            if (imageResId != 0) {
-
-                imageView.setImageResource(imageResId);
-
-            } else {
-
-                imageView.setImageResource(android.R.drawable.ic_delete);
-
+                // Excluimos las imagenes de paketaxos y los iconos de la app
+                if (!resName.startsWith("special_") && !resName.startsWith("ic_launcher")) {
+                    drawableIds.add(resId);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-
-
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setText("Imagen " + i);
-
-
-            itemLayout.addView(imageView);
-            itemLayout.addView(checkBox);
-
-
-            layout.addView(itemLayout);
-
         }
 
+        // Convertimos la lista a array
+        int[] drawableArray = new int[drawableIds.size()];
+        for (int i = 0; i < drawableIds.size(); i++) {
+            drawableArray[i] = drawableIds.get(i);
+        }
+        return drawableArray;
+    }
 
-        scrollView.addView(layout);
+// Funcion no necesaria ya que usamos el array que esta en res/values/strings.xml el cual guarda los nombres
 
-
-        setContentView(scrollView);
-*
-*
-*
-*
-*
-*
-*
-*
-* */
+//    private String[] generateNames(int count) {
+//        String[] placeholderNames = new String[count];
+//        for (int i = 0; i < count; i++) {
+//            placeholderNames[i] = "Image " + (i + 1);
+//        }
+//        return placeholderNames;
+//    }
+}
