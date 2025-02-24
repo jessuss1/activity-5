@@ -5,7 +5,6 @@ import static android.view.View.TEXT_ALIGNMENT_CENTER;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -125,9 +124,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         actionButton.setAlpha(isComplete ? 1.0f : 0.5f);
     }
 
+
+/*
     public boolean isSelectionComplete() {
         return selectedPositions.size() == REQUIRED_SELECTIONS;
-    }
+        }
+*/
 
     public Set<Integer> getSelectedPositions() {
         return selectedPositions;
