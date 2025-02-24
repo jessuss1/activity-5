@@ -51,7 +51,7 @@ public class LayoutUtils {
         selectionIndicator.setGravity(Gravity.CENTER);
         selectionIndicator.setTextSize(18f);
 
-        // Parametros para que el boton se parezca a un boton como el que usa xml
+
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
                 0,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -74,7 +74,7 @@ public class LayoutUtils {
     }
 
     private static void styleButtonAsDefault(Button button, Context context) {
-        // Boton para que sea como xml (lo dio ChatGPT)
+        // Estilo para el boton
         button.setBackgroundTintList(context.getResources().getColorStateList(android.R.color.holo_blue_dark)); // Default blue
         button.setTextColor(context.getResources().getColor(android.R.color.white));
         button.setPadding(16, 8, 16, 8); // Padding similar to MaterialButton
